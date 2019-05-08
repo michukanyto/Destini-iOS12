@@ -35,16 +35,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var storyTextView: UILabel!
     
     // TODO Step 5: Initialise instance variables here
-    
+    var storyIndex = 1
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        storyTextView.text = story1
-        topButton.setTitle(answer1a, for: .normal)
-        bottomButton.setTitle(answer1b, for: .normal)
+        setValuesToTheGame(story: story1, topBtnText: answer1a, buttomBtnText: answer1b)
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
         
     }
@@ -53,15 +50,48 @@ class ViewController: UIViewController {
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
     
+       
+        
         // TODO Step 4: Write an IF-Statement to update the views
+        if sender.tag == 1 && storyIndex == 1{
+            storyIndex = 3
+            setValuesToTheGame(story: story3, topBtnText: answer3a, buttomBtnText: answer3b)
+        }else if sender.tag == 1 && storyIndex == 3{
+            storyIndex = 6
+            setValuesToTheGame(story: story6, topBtnText: "", buttomBtnText: "")
+            //gameOver
+        }else if sender.tag == 2 && storyIndex == 3{
+            storyIndex = 5
+            setValuesToTheGame(story: story5, topBtnText: "", buttomBtnText: "")
+            //gameOver
+        }else if sender.tag == 2 && storyIndex == 1{
+            storyIndex = 2
+            setValuesToTheGame(story: story2, topBtnText: answer2a, buttomBtnText: answer2b)
+        }else if sender.tag == 2 && storyIndex == 2{
+            storyIndex = 4
+            setValuesToTheGame(story: story4, topBtnText: "", buttomBtnText: "")
+            //gameOver
+        }else if sender.tag == 1 && storyIndex == 2{
+            storyIndex = 3
+            setValuesToTheGame(story: story3, topBtnText: answer3a, buttomBtnText: answer3b)
+        }
                 
         // TODO Step 6: Modify the IF-Statement to complete the story
         
     
     }
     
-
-
+    func setValuesToTheGame(story: String, topBtnText: String, buttomBtnText: String){
+        if storyIndex == 4 || storyIndex == 5 || storyIndex == 6{
+            topButton.isHidden = true
+            bottomButton.isHidden = true
+        }else{
+            topButton.setTitle(topBtnText, for: .normal)
+            bottomButton.setTitle(buttomBtnText, for: .normal)
+        }
+        storyTextView.text = story
+        
+    }
 
 }
 
