@@ -34,6 +34,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
     @IBOutlet weak var storyTextView: UILabel!
     
+    @IBOutlet weak var restartButton: UIButton!
+    
+    @IBOutlet weak var exitButton: UIButton!
+    
     // TODO Step 5: Initialise instance variables here
     var storyIndex = 1
     
@@ -41,6 +45,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        restartButton.isHidden = true
+
         setValuesToTheGame(story: story1, topBtnText: answer1a, buttomBtnText: answer1b)
         // TODO Step 3: Set the text for the storyTextView, topButton, bottomButton, and to T1_Story, T1_Ans1, and T1_Ans2
         
@@ -53,7 +59,7 @@ class ViewController: UIViewController {
        
         
         // TODO Step 4: Write an IF-Statement to update the views
-        if sender.tag == 1 && storyIndex == 1{
+        if sender.tag == 1 && (storyIndex == 1 || storyIndex == 2){
             storyIndex = 3
             setValuesToTheGame(story: story3, topBtnText: answer3a, buttomBtnText: answer3b)
         }else if sender.tag == 1 && storyIndex == 3{
@@ -71,9 +77,6 @@ class ViewController: UIViewController {
             storyIndex = 4
             setValuesToTheGame(story: story4, topBtnText: "", buttomBtnText: "")
             //gameOver
-        }else if sender.tag == 1 && storyIndex == 2{
-            storyIndex = 3
-            setValuesToTheGame(story: story3, topBtnText: answer3a, buttomBtnText: answer3b)
         }
                 
         // TODO Step 6: Modify the IF-Statement to complete the story
@@ -85,13 +88,26 @@ class ViewController: UIViewController {
         if storyIndex == 4 || storyIndex == 5 || storyIndex == 6{
             topButton.isHidden = true
             bottomButton.isHidden = true
+            restartButton.isHidden = false
+            exitButton.isHidden = false
         }else{
             topButton.setTitle(topBtnText, for: .normal)
             bottomButton.setTitle(buttomBtnText, for: .normal)
         }
         storyTextView.text = story
-        
     }
 
+    @IBAction func restartButton(_ sender: UIButton) {
+        storyIndex = 1
+        topButton.isHidden = false
+        bottomButton.isHidden = false
+        exitButton.isHidden = true
+        restartButton.isHidden = true
+        setValuesToTheGame(story: story1, topBtnText: answer1a, buttomBtnText: answer1b)
+    }
+    
+    @IBAction func exitButton(_ sender: UIButton) {
+        exit(0)
+    }
 }
 
